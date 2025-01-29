@@ -16,6 +16,7 @@ export const UserProvider = ({ children }) => {
     password: "",
   });
   const [isRememberMe, setISRememberMe] = useState(false);
+  const [isLoginLoadingButton, setIsLoginLoadingButton] = useState(false);
   return (
     <UserContext.Provider
       value={{
@@ -25,6 +26,8 @@ export const UserProvider = ({ children }) => {
         setISRememberMe,
         newUserCrendential,
         setNewUserCrendential,
+        isLoginLoadingButton,
+        setIsLoginLoadingButton,
       }}
     >
       {children}

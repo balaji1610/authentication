@@ -19,11 +19,13 @@ import * as Yup from "yup";
 import { FormHelperText } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useUserContext } from "../context/userContext";
+import UserService from "@/app/service/userService";
 export default function Signup() {
   const router = useRouter();
-  const { newUserCrendential, setNewUserCrendential } = useUserContext();
+  const { newUserCrendential, setNewUserCrendential, isLoginLoadingButton } =
+    useUserContext();
   const [showPassword, setShowPassword] = useState(false);
-
+  const { createAccount } = UserService();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleOnchange = (event) => {
@@ -49,7 +51,9 @@ export default function Signup() {
       ),
     }),
 
-    onSubmit: () => {},
+    onSubmit: () => {
+      createAccount();
+    },
   });
 
   return (
@@ -155,7 +159,11 @@ export default function Signup() {
               </Box>
             </Box>
             <Box>
-              <LoadingButton type="submit" variant="contained">
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={isLoginLoadingButton}
+              >
                 SIGN UP
               </LoadingButton>
             </Box>
