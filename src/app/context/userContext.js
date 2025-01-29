@@ -10,6 +10,11 @@ export const UserProvider = ({ children }) => {
     email: "",
     password: "",
   });
+  const [newUserCrendential, setNewUserCrendential] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [isRememberMe, setISRememberMe] = useState(false);
   return (
     <UserContext.Provider
@@ -18,6 +23,8 @@ export const UserProvider = ({ children }) => {
         setUserCrendential,
         isRememberMe,
         setISRememberMe,
+        newUserCrendential,
+        setNewUserCrendential,
       }}
     >
       {children}
