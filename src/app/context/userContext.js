@@ -17,6 +17,8 @@ export const UserProvider = ({ children }) => {
   });
   const [isRememberMe, setISRememberMe] = useState(false);
   const [isLoginLoadingButton, setIsLoginLoadingButton] = useState(false);
+  const [isVerifyEmail, setIsVerifyEmail] = useState(false);
+  const [verifyMessage, setVerifyMessage] = useState("");
   return (
     <UserContext.Provider
       value={{
@@ -28,6 +30,10 @@ export const UserProvider = ({ children }) => {
         setNewUserCrendential,
         isLoginLoadingButton,
         setIsLoginLoadingButton,
+        isVerifyEmail,
+        setIsVerifyEmail,
+        verifyMessage,
+        setVerifyMessage,
       }}
     >
       {children}

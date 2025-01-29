@@ -18,8 +18,7 @@ export const userLoginRequest = async (userCrendential) => {
 
 export const verfiyEmailRequest = async (token) => {
   const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_VERIFY_EMAIL_ENDPOINT}/${token}`,
-    userCrendential
+    `${process.env.NEXT_PUBLIC_VERIFY_EMAIL_ENDPOINT}/${token}`
   );
   return response;
 };
