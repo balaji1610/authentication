@@ -6,10 +6,20 @@ const UserContext = createContext();
 
 // Provider Component
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState("balaji");
-
+  const [userCrendential, setUserCrendential] = useState({
+    email: "",
+    password: "",
+  });
+  const [isRememberMe, setISRememberMe] = useState(false);
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider
+      value={{
+        userCrendential,
+        setUserCrendential,
+        isRememberMe,
+        setISRememberMe,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
