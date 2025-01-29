@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
   });
   const [isRememberMe, setISRememberMe] = useState(false);
   const [isLoginLoadingButton, setIsLoginLoadingButton] = useState(false);
+
   const [isVerifyEmail, setIsVerifyEmail] = useState(false);
   const [verifyMessage, setVerifyMessage] = useState("");
   return (

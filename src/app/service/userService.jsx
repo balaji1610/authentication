@@ -5,6 +5,7 @@ import { useUserContext } from "../context/userContext";
 import {
   createAccountRequest,
   verfiyEmailRequest,
+  userLoginRequest,
 } from "../../../services/service";
 export default function UserService() {
   const router = useRouter();
@@ -52,6 +53,20 @@ export default function UserService() {
       setIsVerifyEmail(false);
     }
   };
-
-  return { createAccount, sendVerificationEmail };
+  const userLogin = async () => {
+    try {
+      setIsLoginLoadingButton(true);
+      const response = await userLoginRequest(userCrendential);
+      if (response.status === 200) {
+        toast.success(response.data.message ?? "Login Success");
+        setIsLoginLoadingButton(false);
+      }
+    } catch (err) {
+      console.log(err);
+      console.log(err.response.data.message);
+      setIsLoginLoadingButton(false);
+      toast.error(err.response.data.message ?? "Login Failed");
+    }
+  };
+  return { createAccount, sendVerificationEmail, userLogin };
 }

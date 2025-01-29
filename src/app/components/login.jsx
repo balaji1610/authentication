@@ -24,9 +24,14 @@ import UserService from "@/app/service/userService";
 
 export default function Login() {
   const router = useRouter();
-  const { userCrendential, setUserCrendential, isRememberMe, setISRememberMe } =
-    useUserContext();
-  const { createAccount } = UserService();
+  const {
+    userCrendential,
+    setUserCrendential,
+    isRememberMe,
+    setISRememberMe,
+    isLoginLoadingButton,
+  } = useUserContext();
+  const { userLogin } = UserService();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -57,7 +62,9 @@ export default function Login() {
       ),
     }),
 
-    onSubmit: () => {},
+    onSubmit: () => {
+      userLogin();
+    },
   });
 
   return (
@@ -156,7 +163,11 @@ export default function Login() {
               </Box>
             </Box>
             <Box>
-              <LoadingButton type="submit" variant="contained">
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={isLoginLoadingButton}
+              >
                 LOGIN
               </LoadingButton>
             </Box>
