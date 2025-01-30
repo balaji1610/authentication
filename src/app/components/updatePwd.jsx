@@ -19,10 +19,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import UserService from "@/app/service/userService";
+import { useUserContext } from "../context/userContext";
 export default function UpdatePwd() {
   const router = useRouter();
-
+  const {} = UserService();
+  const { updatePwdCrendential, setUpdatePwdCrendential } = useUserContext();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -41,6 +43,9 @@ export default function UpdatePwd() {
   const handleOnChangePassword = (event) => {
     const { name, value } = event.target;
     setUpdatePassword((prev) => {
+      return { ...prev, [name]: value };
+    });
+    setUpdatePwdCrendential((prev) => {
       return { ...prev, [name]: value };
     });
   };
@@ -65,13 +70,12 @@ export default function UpdatePwd() {
       ),
     }),
 
-    onSubmit: (values) => {
-      debugger;
-    },
+    onSubmit: (values) => {},
   });
 
   return (
     <Box>
+      {JSON.stringify(updatePwdCrendential)}
       <Stack
         direction="column"
         spacing={1}
@@ -104,7 +108,12 @@ export default function UpdatePwd() {
 
             <Box>
               {" "}
-              <TextField value={"balaji"} disabled sx={{ width: "16rem" }} />
+              <TextField
+                value={updatePwdCrendential.email}
+                disabled
+                type="email"
+                sx={{ width: "16rem" }}
+              />
             </Box>
             <Box>
               <Box>

@@ -7,6 +7,7 @@ import {
   verfiyEmailRequest,
   userLoginRequest,
   findAccountRequest,
+  updatePwdverifyBeforeEmailRequest,
 } from "../../../services/service";
 export default function UserService() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function UserService() {
     setIsVerifyEmail,
     verifyMessage,
     setVerifyMessage,
+    setUpdatePwdCrendential,
   } = useUserContext();
 
   const createAccount = async () => {
@@ -85,5 +87,35 @@ export default function UserService() {
       toast.error(err.response.data.message ?? "Something Wrong");
     }
   };
-  return { createAccount, sendVerificationEmail, userLogin, findAccount };
+
+  const updatePasswordVerifyEmail = async (verificationToken) => {
+    try {
+      setIsVerifyEmail(true);
+      const response = await updatePwdverifyBeforeEmailRequest(
+        verificationToken
+      );
+      if (response.status === 201) {
+        setVerifyMessage(
+          response.data.message ??
+            "Email verified successfully. You can now UpdatePassword"
+        );
+
+        setIsVerifyEmail(false);
+        setUpdatePwdCrendential((prev) => {
+          return { ...prev, ...response.data.result };
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      setIsVerifyEmail(false);
+      setVerifyMessage("Invalid or expired token Something Wrong");
+    }
+  };
+  return {
+    createAccount,
+    sendVerificationEmail,
+    userLogin,
+    findAccount,
+    updatePasswordVerifyEmail,
+  };
 }

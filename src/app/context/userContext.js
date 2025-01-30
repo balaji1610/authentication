@@ -41,6 +41,8 @@ export const UserProvider = ({ children }) => {
         setIsVerifyEmail,
         verifyMessage,
         setVerifyMessage,
+        updatePwdCrendential,
+        setUpdatePwdCrendential,
       }}
     >
       {children}
