@@ -20,6 +20,12 @@ export const UserProvider = ({ children }) => {
 
   const [isVerifyEmail, setIsVerifyEmail] = useState(false);
   const [verifyMessage, setVerifyMessage] = useState("");
+  const [updatePwdCrendential, setUpdatePwdCrendential] = useState({
+    _id: "",
+    email: "",
+    password: "",
+  });
+
   return (
     <UserContext.Provider
       value={{
