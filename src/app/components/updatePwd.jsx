@@ -81,7 +81,6 @@ export default function UpdatePwd() {
 
   return (
     <Box>
-      {JSON.stringify(updatePwdCrendential)}
       <Stack
         direction="column"
         spacing={1}
