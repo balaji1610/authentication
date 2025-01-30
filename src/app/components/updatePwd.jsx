@@ -23,12 +23,8 @@ import UserService from "@/app/service/userService";
 import { useUserContext } from "../context/userContext";
 export default function UpdatePwd() {
   const router = useRouter();
-  const { updateUserPassword } = UserService();
-  const {
-    updatePwdCrendential,
-    setUpdatePwdCrendential,
-    isLoginLoadingButton,
-  } = useUserContext();
+  const {} = UserService();
+  const { updatePwdCrendential, setUpdatePwdCrendential } = useUserContext();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -74,9 +70,7 @@ export default function UpdatePwd() {
       ),
     }),
 
-    onSubmit: () => {
-      updateUserPassword();
-    },
+    onSubmit: (values) => {},
   });
 
   return (
@@ -199,11 +193,7 @@ export default function UpdatePwd() {
               </FormControl>
             </Box>
             <Box>
-              <LoadingButton
-                type="submit"
-                variant="contained"
-                loading={isLoginLoadingButton}
-              >
+              <LoadingButton type="submit" variant="contained">
                 Save
               </LoadingButton>
             </Box>

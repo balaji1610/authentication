@@ -21,7 +21,6 @@ export default function VerifyEmail() {
   useEffect(() => {
     verifyMessage;
   }, [setVerifyMessage, verifyMessage]);
-  
   return (
     <div>
       <Box

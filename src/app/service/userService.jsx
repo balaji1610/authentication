@@ -8,18 +8,20 @@ import {
   userLoginRequest,
   findAccountRequest,
   updatePwdverifyBeforeEmailRequest,
-  updatePasswordRequest,
 } from "../../../services/service";
 export default function UserService() {
   const router = useRouter();
   const {
     userCrendential,
+    setUserCrendential,
     newUserCrendential,
+    setNewUserCrendential,
     setIsLoginLoadingButton,
+    isVerifyEmail,
     setIsVerifyEmail,
+    verifyMessage,
     setVerifyMessage,
     setUpdatePwdCrendential,
-    updatePwdCrendential,
   } = useUserContext();
 
   const createAccount = async () => {
@@ -109,29 +111,11 @@ export default function UserService() {
       setVerifyMessage("Invalid or expired token Something Wrong");
     }
   };
-
-  const updateUserPassword = async () => {
-    try {
-      setIsLoginLoadingButton(true);
-      const response = await updatePasswordRequest(updatePwdCrendential);
-      if (response.status === 201) {
-        setIsLoginLoadingButton(false);
-        toast.success(response.data.message ?? "SucessFully Update Password !");
-        router.push("/");
-      }
-    } catch (err) {
-      console.log(err);
-      console.log(err.response.data.message);
-      toast.error(err.response.data.message ?? "User Not Found");
-      setIsLoginLoadingButton(false);
-    }
-  };
   return {
     createAccount,
     sendVerificationEmail,
     userLogin,
     findAccount,
     updatePasswordVerifyEmail,
-    updateUserPassword,
   };
 }
