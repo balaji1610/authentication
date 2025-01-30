@@ -40,7 +40,7 @@ export const updatePwdverifyBeforeEmailRequest = async (token) => {
 
 export const updatePasswordRequest = async (userNewPwd) => {
   const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_FIND_ACCOUNT_ENDPOINT}`,
+    `${process.env.NEXT_PUBLIC_UPDATEPASSWORD_ENDPOINT}`,
     userNewPwd
   );
   return response;
