@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 // Create Context
 const UserContext = createContext();
@@ -11,6 +11,17 @@ export const UserProvider = ({ children }) => {
     password: "",
     isRememberMe: false,
   };
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   const [userCrendential, setUserCrendential] = useState(() => {
     return JSON.parse(localStorage.getItem("Rememberme")) || loginUser;
   });
