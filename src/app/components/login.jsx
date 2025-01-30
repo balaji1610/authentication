@@ -187,6 +187,16 @@ export default function Login() {
                 variant="subtitle1"
                 color="primary"
                 sx={{ display: "inline-block", cursor: "pointer" }}
+                onClick={() => router.push("./resetPassword")}
+              >
+                Reset Password ?
+              </Typography>
+            </Box>
+            <Box>
+              <Typography
+                variant="subtitle1"
+                color="primary"
+                sx={{ display: "inline-block", cursor: "pointer" }}
                 onClick={() => router.push("./admin")}
               >
                 Admin
