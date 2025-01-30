@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Box, Stack } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
@@ -45,7 +45,21 @@ export default function Login() {
   };
 
   const handleOnRememberMe = (event) => {
-    setISRememberMe(event.target.checked);
+    setUserCrendential((prev) => {
+      return { ...prev, isRememberMe: event.target.checked };
+    });
+
+    if (event.target.checked) {
+      localStorage.setItem(
+        "Rememberme",
+        JSON.stringify({
+          ...userCrendential,
+          isRememberMe: event.target.checked,
+        })
+      );
+    } else {
+      localStorage.removeItem("Rememberme");
+    }
   };
 
   const formik = useFormik({
@@ -102,7 +116,11 @@ export default function Login() {
                 sx={{ width: "16rem" }}
                 type="email"
                 name="email"
-                value={formik.values.email}
+                value={
+                  formik.values.email == ""
+                    ? userCrendential.email
+                    : formik.values.email
+                }
                 onChange={(event) => {
                   handleOnchange(event);
                   formik.handleChange(event);
@@ -134,7 +152,11 @@ export default function Login() {
                     }
                     label="Password"
                     name="password"
-                    value={formik.values.password}
+                    value={
+                      formik.values.password == ""
+                        ? userCrendential.password
+                        : formik.values.password
+                    }
                     onChange={(event) => {
                       handleOnchange(event);
                       formik.handleChange(event);
@@ -148,7 +170,7 @@ export default function Login() {
 
               <Box>
                 <Checkbox
-                  checked={isRememberMe}
+                  checked={userCrendential.isRememberMe}
                   onChange={handleOnRememberMe}
                 />
                 Remember Me
@@ -190,16 +212,6 @@ export default function Login() {
                 onClick={() => router.push("./resetPassword")}
               >
                 Reset Password ?
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                variant="subtitle1"
-                color="primary"
-                sx={{ display: "inline-block", cursor: "pointer" }}
-                onClick={() => router.push("./admin")}
-              >
-                Admin
               </Typography>
             </Box>
           </Stack>
