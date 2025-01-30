@@ -6,24 +6,10 @@ const UserContext = createContext();
 
 // Provider Component
 export const UserProvider = ({ children }) => {
-  const loginUser = {
+  const [userCrendential, setUserCrendential] = useState({
     email: "",
     password: "",
     isRememberMe: false,
-  };
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
-  const [userCrendential, setUserCrendential] = useState(() => {
-    return JSON.parse(localStorage.getItem("Rememberme")) || loginUser;
   });
   const [newUserCrendential, setNewUserCrendential] = useState({
     username: "",
@@ -58,7 +44,6 @@ export const UserProvider = ({ children }) => {
         setVerifyMessage,
         updatePwdCrendential,
         setUpdatePwdCrendential,
-        loginUser,
       }}
     >
       {children}

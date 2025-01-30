@@ -44,24 +44,6 @@ export default function Login() {
     });
   };
 
-  const handleOnRememberMe = (event) => {
-    setUserCrendential((prev) => {
-      return { ...prev, isRememberMe: event.target.checked };
-    });
-
-    if (event.target.checked) {
-      localStorage.setItem(
-        "Rememberme",
-        JSON.stringify({
-          ...userCrendential,
-          isRememberMe: event.target.checked,
-        })
-      );
-    } else {
-      localStorage.removeItem("Rememberme");
-    }
-  };
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -116,11 +98,7 @@ export default function Login() {
                 sx={{ width: "16rem" }}
                 type="email"
                 name="email"
-                value={
-                  formik.values.email == ""
-                    ? userCrendential.email
-                    : formik.values.email
-                }
+                value={formik.values.email}
                 onChange={(event) => {
                   handleOnchange(event);
                   formik.handleChange(event);
@@ -152,11 +130,7 @@ export default function Login() {
                     }
                     label="Password"
                     name="password"
-                    value={
-                      formik.values.password == ""
-                        ? userCrendential.password
-                        : formik.values.password
-                    }
+                    value={formik.values.password}
                     onChange={(event) => {
                       handleOnchange(event);
                       formik.handleChange(event);
@@ -166,14 +140,6 @@ export default function Login() {
                     }
                   />
                 </FormControl>
-              </Box>
-
-              <Box>
-                <Checkbox
-                  checked={userCrendential.isRememberMe}
-                  onChange={handleOnRememberMe}
-                />
-                Remember Me
               </Box>
 
               <Box sx={{ width: "14vw", height: "5vh" }}>
