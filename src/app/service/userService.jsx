@@ -6,6 +6,7 @@ import {
   createAccountRequest,
   verfiyEmailRequest,
   userLoginRequest,
+  findAccountRequest,
 } from "../../../services/service";
 export default function UserService() {
   const router = useRouter();
@@ -68,5 +69,21 @@ export default function UserService() {
       toast.error(err.response.data.message ?? "Login Failed");
     }
   };
-  return { createAccount, sendVerificationEmail, userLogin };
+
+  const findAccount = async (email) => {
+    try {
+      setIsLoginLoadingButton(true);
+      const response = await findAccountRequest(email);
+      if (response.status === 201) {
+        toast.success(response.data.message);
+        setIsLoginLoadingButton(false);
+      }
+    } catch (err) {
+      console.log(err);
+      console.log(err.response.data.message);
+      setIsLoginLoadingButton(false);
+      toast.error(err.response.data.message ?? "Something Wrong");
+    }
+  };
+  return { createAccount, sendVerificationEmail, userLogin, findAccount };
 }

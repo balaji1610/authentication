@@ -12,13 +12,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import LoadingButton from "@mui/lab/LoadingButton";
-
+import UserService from "@/app/service/userService";
+import { useUserContext } from "../context/userContext";
 export default function FindAccount() {
   const router = useRouter();
-
-  const handleOnChangeResetPassword = (event) => {
-    const { name, value } = event.target;
-  };
+  const { findAccount } = UserService();
+  const { isLoginLoadingButton } = useUserContext();
 
   const formik = useFormik({
     initialValues: {
@@ -30,7 +29,7 @@ export default function FindAccount() {
     }),
 
     onSubmit: (values) => {
-      debugger;
+      findAccount(values);
     },
   });
 
@@ -74,7 +73,6 @@ export default function FindAccount() {
                 type="email"
                 value={formik.values.email}
                 onChange={(event) => {
-                  handleOnChangeResetPassword(event);
                   formik.handleChange(event);
                 }}
                 helperText={formik.touched.email && formik.errors.email}
@@ -85,6 +83,7 @@ export default function FindAccount() {
               <LoadingButton
                 type="submit"
                 variant="contained"
+                loading={isLoginLoadingButton}
                 size="large"
                 sx={{ width: "14rem" }}
               >
